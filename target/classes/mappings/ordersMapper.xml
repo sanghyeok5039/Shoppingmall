@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IOrdersDao">
+	<insert id = "insert" parameterType = "ODto">
+		INSERT INTO ORDERS(MBR_ID, ORDS_DATE, ORDS_TOTAL, ORDS_STATE, ORDS_DELV_STATE, ORDS_DELV_ADRES,ORDS_PAYMENT_STATE,ORDS_NUMBER)
+		VALUES (#{mbr_id},#{ords_date},#{ords_total},#{ords_state},#{ords_delv_state},#{ords_delv_adres},#{ords_payment_state},#{ords_number})
+	</insert>
+	
+	<select id="searchOne" resultType="ODto" parameterType="ODto">
+		SELECT * FROM ORDERS 
+		WHERE MBR_ID = #{mbr_id} AND
+		ORDS_DATE = #{ords_date}
+	</select>
+	
+	<select id="count" resultType="int">
+		SELECT MAX(TO_NUMBER(ORDS_NUMBER)) FROM ORDERS
+	</select>
+	
+	<select id="countId" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM ORDERS WHERE MBR_ID = #{mbr_id}
+	</select>
+	
+	<select id="searchId" resultType="ODto" parameterType="CDto">
+		SELECT * FROM ( SELECT ROWNUM RNUM , O.* FROM (
+			SELECT * FROM ORDERS 
+			WHERE MBR_ID = #{mbr_id}
+		) O  )	WHERE  RNUM	<![CDATA[>= #{startNum}  AND   ROWNUM	<= #{pageNum}]]>
+	</select>
+</mapper>

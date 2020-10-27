@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IClosingDao">
+	<select id="sltOne" parameterType="String" resultType="closDto">
+		SELECT * 
+		FROM   CLOSING
+		WHERE  CLOS_DATE = #{clos_date}
+	</select>	
+
+	<select id="sltCondition" parameterType="String" resultType="closDto">
+		SELECT * 
+		FROM   CLOSING
+		WHERE  CLOS_DATE LIKE #{condition}||'%'
+		ORDER BY CLOS_DATE
+	</select>
+	
+	<select id="sltMul" resultType="closDto">
+		SELECT * FROM CLOSING
+	</select>
+	
+	<select id="getPreDayTotSales" parameterType="hashMap" resultType="String">
+		SELECT SUM(ORDS_TOTAL)
+		FROM  ORDERS 
+		WHERE ORDS_DATE BETWEEN #{preDay} AND #{today}
+	</select>
+	
+	<select id="getPreDayOrderCnt" parameterType="hashMap" resultType="String">
+		SELECT COUNT(*)
+		FROM  ORDERS 
+		WHERE ORDS_DATE BETWEEN #{preDay} AND #{today}
+	</select>
+	
+	<insert id="closing" parameterType="hashMap">
+		INSERT INTO CLOSING
+		VALUES(#{preDay},#{preDayTotSales},#{preDayOrderCnt})
+	</insert>
+</mapper>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shoppingmall.dao.IProductDetailDao">
+
+	<select id="search" resultType="PdDto" parameterType="String">
+		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCT_ID = #{product_id}
+	</select> 
+	
+	<select id="searchOne" resultType="PdDto" parameterType="String">
+		SELECT * FROM PRODUCT_DETAIL WHERE PRODUCT_DETAIL_ID = #{product_detail_id}
+	</select> 
+	
+	<update id = "countupdate" parameterType = "PdDto">
+		UPDATE PRODUCT_DETAIL SET 
+		PRODUCT_COUNT = #{product_count}
+		WHERE PRODUCT_DETAIL_ID = #{product_detail_id}
+	</update>
+	
+</mapper>

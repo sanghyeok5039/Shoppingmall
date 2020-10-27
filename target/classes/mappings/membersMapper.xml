@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IMembersDao">
+	<select id="search" resultType="MDto" parameterType="String">
+		SELECT * FROM MEMBERS 
+		WHERE MBR_ID = #{mbr_id}
+	</select> 
+	
+	<update id = "pointupdate" parameterType = "MDto">
+		UPDATE MEMBERS SET 
+		MBR_POINT = #{mbr_point}
+		WHERE MBR_ID = #{mbr_id}
+	</update>
+
+	<select id="searchnon" resultType="MDto" parameterType="String">
+		SELECT * FROM MEMBERS 
+		WHERE MBR_ID = #{MBR_ID}
+		AND MBR_LEVEL = '9'
+	</select> 
+	
+	<select id="countnon" resultType="int">
+		SELECT MAX(TO_NUMBER(MBR_ID)) FROM MEMBERS 
+		WHERE MBR_LEVEL = '8'
+	</select> 
+	
+	<insert id = "insertnon" parameterType="MDto">
+		INSERT INTO MEMBERS(MBR_ID, MBR_PW, MBR_GRADE, MBR_NAME, MBR_TEL, MBR_ADRES, MBR_RGSDE, MBR_LEVEL, MBR_SEX, MBR_BRTHDY, MBR_POINT, MBR_SECSN, MBR_EMAIL)
+		VALUES (#{mbr_id}, #{mbr_pw}, #{mbr_grade}, #{mbr_name}, #{mbr_tel}, #{mbr_adres}, #{mbr_rgsde}, #{mbr_level}, #{mbr_sex}, #{mbr_brthdy}, #{mbr_point}, #{mbr_secsn},#{mbr_email} )
+	</insert>
+	
+</mapper>

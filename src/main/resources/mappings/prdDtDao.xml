@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.PrdDtDAO">
+	
+	
+	<insert id = "insert" parameterType="prdDto">
+		INSERT INTO 
+					  PRODUCT_DETAIL 
+					( 
+					  PRODUCT_DETAIL_ID
+					, PRODUCT_ID
+					, PRODUCT_SIZE
+					, PRODUCT_COLOR
+					, PRODUCT_COUNT
+					, PRODUCT_PRICE
+					)
+			  VALUES
+			  		(
+			  		  #{df_id}
+			  		, #{prd_id}
+			  		, #{prd_size}
+			  		, #{prd_color}
+			  		, #{prd_cnt}
+			  		, #{prd_price}  
+			  		)
+	</insert>
+	
+	
+	<update id = "update" parameterType="prdDto">
+		UPDATE PRODUCT_DETAIL 
+		   SET
+			   PRODUCT_ID = #{prd_id}
+		     , PRODUCT_SIZE = #{prd_size}
+		     , PRODUCT_COLOR = #{prd_color}
+		     , PRODUCT_COUNT = #{prd_cnt}
+		     , PRODUCT_PRICE = #{prd_price}  
+	     WHERE PRODUCT_DETAIL_ID = #{df_id}
+	
+	</update>
+	
+</mapper>

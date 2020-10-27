@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shoppingmall.dao.IPoint_InOutDao">
+
+	<insert id = "insert" parameterType = "PDto">
+		INSERT INTO POINT_INOUT(MBR_ID, PT_DATE, PT_IN, PT_OUT)
+		VALUES (#{mbr_id},#{pt_date},#{pt_in},#{pt_out})
+	</insert>
+
+	<select id = "search" resultType = "PDto" parameterType = "PDto">
+		SELECT * FROM POINT_INOUT 
+		WHERE MBR_ID = #{mbr_id} AND
+		PT_DATE = #{pt_date}
+	</select>
+</mapper>

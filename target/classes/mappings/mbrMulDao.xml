@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.MbrMDAO">
+	<select id = "mbrMulSrch" resultType="mbrDto">
+		SELECT * FROM MEMBERS
+	</select>
+	
+	<select id = "nameSrch" resultType="mbrDto" parameterType="String">
+		SELECT 	* 
+		FROM 	MEMBERS 
+		WHERE MBR_NAME LIKE #{param1} 
+	</select>
+	<select id = "idSrch" resultType="mbrDto" parameterType="String">
+		SELECT 	* 
+		FROM 	MEMBERS 
+		WHERE MBR_ID LIKE #{param1} 
+	</select>
+	<select id = "telSrch" resultType="mbrDto" parameterType="String">
+		SELECT 	* 
+		FROM 	MEMBERS 
+		WHERE MBR_TEL LIKE #{param1} 
+	</select>
+</mapper>

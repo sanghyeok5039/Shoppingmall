@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shoppingmall.dao.IProduct_InOutDao">
+
+<insert id = "insert" parameterType = "PioDto">
+	INSERT INTO PRODUCT_INOUT(PRODUCT_DETAIL_ID, PRD_INOUT_DATE, PRD_OUT,PRD_IN)
+	VALUES (#{product_detail_id},#{prd_inout_date},#{prd_out},#{prd_in})
+</insert>
+
+</mapper>

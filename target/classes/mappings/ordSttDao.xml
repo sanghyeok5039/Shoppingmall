@@ -1,0 +1,185 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.OrdSttDAO">
+	<select id = "ordSttList" resultType="ordSttDto" parameterType="String">		
+			select 
+			      o.ords_number AS NO
+			    , MAX(P.PRODUCT_NAME) AS PNAME
+			    , o.ords_date AS ODATE
+			    , m.mbr_name AS MNAME
+			    , o.ords_total AS TOTAL
+			    , o.ords_payment_state AS PAYMENT
+			    , ords_state OSTATE
+			    , o.ords_delv_state  AS DSTATE
+			from  
+			      orders o 
+			    , product p
+			    , members m
+			    , orders_detail od
+			where 
+			      o.ords_date = od.ords_date
+			and   
+			      p.product_id = od.product_id
+			and   
+			      o.mbr_id = m.mbr_id
+			group by
+			    o.ords_number
+			    , o.ords_date
+			    , m.mbr_name
+			    , o.ords_total
+			    , o.ords_payment_state
+			    , ords_state
+			    , o.ords_delv_state
+			ORDER BY 
+				  o.ords_number
+	</select>
+	
+	
+	<select id = "CndtnSrchNum" resultType="ordSttDto" parameterType="String">		
+			select 
+			      o.ords_number AS NO
+			    , MAX(P.PRODUCT_NAME) AS PNAME
+			    , o.ords_date AS ODATE
+			    , m.mbr_name AS MNAME
+			    , o.ords_total AS TOTAL
+			    , o.ords_payment_state AS PAYMENT
+			    , ords_state OSTATE
+			    , o.ords_delv_state  AS DSTATE
+			from  
+			      orders o 
+			    , product p
+			    , members m
+			    , orders_detail od
+			where 
+			      o.ords_date = od.ords_date
+			and   
+			      p.product_id = od.product_id
+			and   
+			      o.mbr_id = m.mbr_id
+			and
+				  o.ords_number like #{param1}
+			group by
+			    o.ords_number
+			    , o.ords_date
+			    , m.mbr_name
+			    , o.ords_total
+			    , o.ords_payment_state
+			    , ords_state
+			    , o.ords_delv_state
+			ORDER BY 
+				  o.ords_number
+	</select>
+	
+	
+	<select id = "CndtnSrchId" resultType="ordSttDto" parameterType="String">		
+			select 
+			      o.ords_number AS NO
+			    , MAX(P.PRODUCT_NAME) AS PNAME
+			    , o.ords_date AS ODATE
+			    , m.mbr_name AS MNAME
+			    , o.ords_total AS TOTAL
+			    , o.ords_payment_state AS PAYMENT
+			    , ords_state OSTATE
+			    , o.ords_delv_state  AS DSTATE
+			from  
+			      orders o 
+			    , product p
+			    , members m
+			    , orders_detail od
+			where 
+			      o.ords_date = od.ords_date
+			and   
+			      p.product_id = od.product_id
+			and   
+			      o.mbr_id = m.mbr_id
+			and
+				  m.mbr_id like #{param1}
+			group by
+			    o.ords_number
+			    , o.ords_date
+			    , m.mbr_name
+			    , o.ords_total
+			    , o.ords_payment_state
+			    , ords_state
+			    , o.ords_delv_state
+			ORDER BY 
+				  o.ords_number
+	</select>
+	
+	
+	
+	<select id = "CndtnSrchName" resultType="ordSttDto" parameterType="String">		
+			select 
+			      o.ords_number AS NO
+			    , MAX(P.PRODUCT_NAME) AS PNAME
+			    , o.ords_date AS ODATE
+			    , m.mbr_name AS MNAME
+			    , o.ords_total AS TOTAL
+			    , o.ords_payment_state AS PAYMENT
+			    , ords_state OSTATE
+			    , o.ords_delv_state  AS DSTATE
+			from  
+			      orders o 
+			    , product p
+			    , members m
+			    , orders_detail od
+			where 
+			      o.ords_date = od.ords_date
+			and   
+			      p.product_id = od.product_id
+			and   
+			      o.mbr_id = m.mbr_id
+			and
+				  m.mbr_name like #{param1}
+			group by
+			    o.ords_number
+			    , o.ords_date
+			    , m.mbr_name
+			    , o.ords_total
+			    , o.ords_payment_state
+			    , ords_state
+			    , o.ords_delv_state
+			ORDER BY 
+				  o.ords_number
+	</select>
+	
+	
+	
+	
+		<select id = "CndtnSrchTel" resultType="ordSttDto" parameterType="String">		
+			select 
+			      o.ords_number AS NO
+			    , MAX(P.PRODUCT_NAME) AS PNAME
+			    , o.ords_date AS ODATE
+			    , m.mbr_name AS MNAME
+			    , o.ords_total AS TOTAL
+			    , o.ords_payment_state AS PAYMENT
+			    , ords_state OSTATE
+			    , o.ords_delv_state  AS DSTATE
+			from  
+			      orders o 
+			    , product p
+			    , members m
+			    , orders_detail od
+			where 
+			      o.ords_date = od.ords_date
+			and   
+			      p.product_id = od.product_id
+			and   
+			      o.mbr_id = m.mbr_id
+			and
+				  m.mbr_tel like #{param1}
+			group by
+			    o.ords_number
+			    , o.ords_date
+			    , m.mbr_name
+			    , o.ords_total
+			    , o.ords_payment_state
+			    , ords_state
+			    , o.ords_delv_state
+			ORDER BY 
+				  o.ords_number
+	</select>
+</mapper>

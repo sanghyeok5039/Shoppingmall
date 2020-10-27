@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias type="com.shoppingmall.dto.ProductDetailDto" alias="PdDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.PrdDTO" 			alias="prdDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.CtgryDTO" 		alias="ctgryDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.MCtgryDTO" 		alias="mCtgryDto"></typeAlias> 
+		<typeAlias type="com.shoppingmall.dto.OrdersDTO" 		alias="ordDto"></typeAlias> 
+		<typeAlias type="com.shoppingmall.dto.OrdSttDTO" 		alias="ordSttDto"></typeAlias> 
+		<typeAlias type="com.shoppingmall.dto.NoticeDto"  		alias="ntcDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.PagingDto"   	 	alias="pgDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.InquryDto" 		alias="iqDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.ClosingDto" 		alias="closDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.MbrDto" 			alias="mbrDto"/>
+		<typeAlias type="com.shoppingmall.dto.PtInOutDto"		alias="ptInOutDto"/>
+		<typeAlias type="com.shoppingmall.dto.BasketDto" 		alias="basketDto" />
+		<typeAlias type="com.shoppingmall.dto.ProductDto" 		alias="Dto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.CountDto" 		alias="CDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.Board_reviewDto" 	alias="BDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.MembersDto" 		alias="MDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.OrdDto" 			alias="ODto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.OrdersDetailDto" 	alias="ODDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.Point_inoutDto" 	alias="PDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.BasketDto" 		alias="BsDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.Product_InOutDto" alias="PioDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.Main_CategoryDto" alias="McaDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.CategoryDto" 		alias="CaDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.FAQDto" 			alias="faqDto"></typeAlias>
+		<typeAlias type="com.shoppingmall.dto.PrdEleDTO" 		alias="prdEleDto"></typeAlias>
+	</typeAliases>
+</configuration>

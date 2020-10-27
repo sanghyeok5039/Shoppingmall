@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shoppingmall.dao.IBasketDao">
+
+	<select id = "search" resultType = "BsDto" parameterType = "String">
+		SELECT * FROM BASKET WHERE MBR_ID = #{mbr_id}
+	</select>
+	
+	<insert id = "insert" parameterType = "BsDto">
+		INSERT INTO BASKET(MBR_ID, PRODUCT_ID,NUM, PRODUCT_DETAIL_ID)
+		VALUES (#{mbr_id},#{product_id},#{num},#{product_detail_id})
+	</insert>
+	
+	<delete id = "delete" parameterType = "BsDto">
+		DELETE FROM BASKET WHERE MBR_ID = #{mbr_id} 
+		AND PRODUCT_DETAIL_ID = #{product_detail_id}
+	</delete>
+	
+	<delete id = "memberdelete" parameterType = "String">
+		DELETE FROM BASKET WHERE MBR_ID = #{mbr_id} 
+	</delete>
+	
+</mapper>

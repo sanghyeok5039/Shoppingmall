@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IInquryDao">
+
+	<select id="getCnt" resultType="int">
+		SELECT COUNT(*) FROM BOARD_QANDA
+	</select>
+	
+	<select id="getAnswerAtCnt" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM BOARD_QANDA
+		WHERE QANDA_AT=#{answer_at}
+	</select>
+	
+	<select id="getMyInquryCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*) FROM BOARD_QANDA
+		WHERE MBR_ID=#{mbr_id}
+	</select>
+	
+	<select id="getInqury" resultType="iqDto" parameterType="int">
+		SELECT * FROM BOARD_QANDA WHERE QANDA_NUM=#{qanda_num}
+	</select>
+	
+	<select id="getInquryList" resultType="iqDto" parameterType="pgDto">
+		SELECT *							
+		FROM  ( SELECT ROWNUM RNUM		
+					 , O.*				
+				FROM   ( SELECT *			
+						 FROM 	  BOARD_QANDA 
+					     ORDER BY QANDA_NUM  DESC
+					    ) O 				
+			  )							
+			WHERE  RNUM	  &gt;= #{startNo}			
+			AND    ROWNUM &lt;= #{pageSize}
+	</select>
+	
+	<select id="getAnswerAtInquryList" resultType="iqDto" parameterType="map">
+		SELECT *							
+		FROM  ( SELECT ROWNUM RNUM		
+					 , O.*				
+				FROM   ( SELECT *			
+						 FROM 	  BOARD_QANDA 
+					     WHERE QANDA_AT=#{answer_at}
+                         ORDER BY QANDA_NUM  DESC
+					    ) O 				
+			  )							
+			WHERE  RNUM	  &gt;= #{pgDto.startNo}	
+			AND    ROWNUM &lt;= #{pgDto.pageSize}
+	</select>
+
+	<select id="getMyInquryList" parameterType="hashmap" resultType="iqDto">
+		SELECT *							
+		FROM  ( SELECT ROWNUM RNUM		
+					 , O.*				
+				FROM   ( SELECT *			
+						 FROM 	  BOARD_QANDA 
+                         WHERE    MBR_ID=#{mbr_id}
+					     ORDER BY QANDA_NUM  DESC
+					    ) O 				
+			  )							
+			WHERE  RNUM	  &gt;= #{startNo}			
+			AND    ROWNUM &lt;= #{pageSize}
+	</select>
+	<insert id="insert">
+		<selectKey keyProperty="qanda_num" resultType="int" order="BEFORE">
+			SELECT BOARD_QANDA_SQ.NEXTVAL FROM DUAL
+		</selectKey>
+		INSERT INTO BOARD_QANDA (QANDA_NUM, MBR_ID, QANDA_TITLE, QANDA_CONTENT, QANDA_REGDATE, QANDA_READCOUNT,QANDA_AT)
+		VALUES(#{qanda_num},#{mbr_id},#{qanda_title},#{qanda_content},SYSDATE,0,'N')
+	</insert>
+	
+	<update id="update">
+		UPDATE BOARD_QANDA
+		SET
+		QANDA_ANSWER = #{qanda_answer},
+		QANDA_AT = #{qanda_at}
+		WHERE
+		QANDA_NUM = #{qanda_num} 
+	</update>
+	
+	<!-- 파일 조회 -->
+	<select id="selectFileList" parameterType="int" resultType="hashMap">
+	SELECT FILE_NO,
+		   ORG_FILE_NAME,
+		   ROUND(FILE_SIZE/1024,1) AS FILE_SIZE
+	FROM   INQURY_FILE
+	WHERE  QANDA_NUM = #{QANDA_NUM}
+	AND DEL_GB = 'N'
+	</select>
+	
+	<!-- 파일 다운 -->
+	<select id="selectFileInfo" parameterType="hashMap" resultType="hashMap">
+		SELECT STORED_FILE_NAME
+			 , ORG_FILE_NAME
+		FROM   INQURY_FILE
+		WHERE  FILE_NO = #{FILE_NO}
+	</select>
+
+	<!--  파일 업로드 -->
+	<insert id="insertFile" parameterType="hashMap">
+		INSERT INTO INQURY_FILE(
+			FILE_NO,
+			QANDA_NUM,
+			ORG_FILE_NAME,
+			STORED_FILE_NAME,
+			FILE_SIZE
+		)VALUES(
+			INQURY_FILE_SQ.NEXTVAL,
+			#{QANDA_NUM},
+			#{ORG_FILE_NAME},
+			#{STORED_FILE_NAME},
+			#{FILE_SIZE}
+		)
+    </insert>
+</mapper>

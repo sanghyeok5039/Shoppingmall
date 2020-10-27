@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.OrdersMDAO">
+	
+	<!-- 주문상태조회 일단 당일 조회하는거임 -->
+	<select id = "ordSttMulSrch" resultType="ordDto" parameterType="String">
+	<![CDATA[ ]]>	
+		SELECT * FROM ORDERS 
+		WHERE ORDS_DATE <![CDATA[ >= ]]> TO_DATE(#{param1} , 'YYYY-MM-DD HH24:MI:SS')
+		AND   ORDS_DATE <![CDATA[ <= ]]> TO_DATE(#{param2} , 'YYYY-MM-DD HH24:MI:SS')
+	
+	
+	</select>
+	
+		<!-- 
+		= "SELECT *                       											 " 
+	 	+ "FROM ( SELECT O.*        												 "
+		+ "       , ROWNUM RNUM      												 "
+		+ "       FROM ( SELECT *          											 "
+		+ "              FROM   DAY_CLOSING 										 "
+		+ "              WHERE  1 = 1       										 " 
+		+ "              AND    CLOSING_DATE >= TO_DATE(? , 'YYYY-MM-DD HH24:MI:SS') "
+		+ "              AND    CLOSING_DATE <= TO_DATE(? , 'YYYY-MM-DD HH24:MI:SS') "
+		+ "              ORDER  BY CLOSING_DATE   									 "
+		+ "            ) O                  										 "
+		+ "     )                     	   											 "
+		+ "WHERE  RNUM   >= ?             											 "
+		+ "AND    ROWNUM <= ?             											 ";
+		 -->
+		
+</mapper>

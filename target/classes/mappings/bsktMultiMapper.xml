@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.BasketMultiDao">
+
+	<select id="getAllBskt" resultType="basketDto" parameterType="String">
+		SELECT BASKET.MBR_ID, PRODUCT.PRODUCT_ID, PRODUCT.PRODUCT_NAME, PRODUCT_DETAIL.PRODUCT_PRICE, BASKET.NUM 
+		FROM BASKET 
+		INNER JOIN PRODUCT ON BASKET.PRODUCT_ID = PRODUCT.PRODUCT_ID
+		INNER JOIN PRODUCT_DETAIL ON BASKET.PRODUCT_ID = PRODUCT_DETAIL.PRODUCT_ID
+		WHERE BASKET.MBR_ID = #{mbr_id}
+	</select>
+
+</mapper>

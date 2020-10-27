@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.BasketCUDDao">
+
+	<select id="getBskt" parameterType="String" resultType="basketDto">
+		SELECT *
+		FROM BASKET
+		WHERE MBR_ID = #{mbr_id}
+		AND PRODUCT_DETAIL_ID = #{product_detail_id}
+	</select>
+
+	<select id="getAllBskt" resultType="basketDto">
+		SELECT * FROM BASKET
+	</select>
+
+	<delete id="deleteBskt" parameterType="basketDto">
+		DELETE FROM BASKET
+		WHERE
+		MBR_ID = #{mbr_id}
+		AND PRODUCT_DETAIL_ID = #{product_detail_id}
+	</delete>
+
+</mapper>

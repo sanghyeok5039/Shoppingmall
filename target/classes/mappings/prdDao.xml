@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.PrdDAO">
+
+	<select id = "getEleOne" resultType="prdEleDto" parameterType="String">
+		SELECT * FROM PRODUCT
+		WHERE PRODUCT_ID = #{param1}
+	</select>
+
+	<select id = "getOne" resultType="prdDto" parameterType="String">
+		select    p.product_id          as prd_id
+		        , p.product_name        as prd_name
+		        , p.ctgr_id             as ctgr_id
+		        , p.m_ctgr_id           as m_ctgr_id
+		        , p.product_img         as prd_img
+		        , sum(pd.product_count) as prd_cnt
+		        , pd.product_price      as prd_price
+		        , p.product_state       as prd_stt
+		        , p.product_content		as prd_cntnt
+		from      product p
+		        , product_detail pd
+		where     p.product_id = pd.product_id
+		and       p.product_id = #{param1} <!-- prd_id -->
+		group by  p.product_id
+		        , p.product_name
+		        , p.ctgr_id
+		        , p.m_ctgr_id
+		        , p.product_img
+		        , pd.product_price
+		        , p.product_state
+		        , p.product_content
+	</select>
+	
+	<insert id = "insert" parameterType="prdDto">
+INSERT INTO PRODUCT(PRODUCT_ID, CTGR_ID, PRODUCT_NAME, PRODUCT_STATE, PRODUCT_TOTALGRADE , M_CTGR_ID, PRODUCT_IMG, PRODUCT_CONTENT )
+VALUES(#{prd_id}, #{ctgr_id}, #{prd_name}, #{prd_stt}, #{prd_grade}, #{m_ctgr_id}, #{prd_img}, #{prd_cntnt})
+	</insert>
+	
+	<update id = "update" parameterType="prdEleDto">
+		UPDATE PRODUCT SET 
+		CTGR_ID				= #{CTGR_ID}			,
+		M_CTGR_ID			= #{M_CTGR_ID}			,
+		PRODUCT_NAME 		= #{PRODUCT_NAME}		,
+		PRODUCT_IMG 		= #{PRODUCT_IMG}		,
+		PRODUCT_CONTENT 	= #{PRODUCT_CONTENT}	,
+		PRODUCT_STATE 		= #{PRODUCT_STATE}		,
+		PRODUCT_TOTALGRADE 	= #{PRODUCT_TOTALGRADE} 
+		WHERE PRODUCT_ID 	= #{PRODUCT_ID}
+	</update>
+	
+	<delete id = "delete" parameterType="String">
+		DELETE FROM PRODUCT 
+		WHERE PRODUCT_ID = #{prd_id}	
+	</delete>
+
+</mapper>

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IHomeDao">
+
+	<select id="todayOrderCnt" parameterType="hashMap" resultType="int">
+		SELECT COUNT(*)
+		FROM  ORDERS 
+		WHERE ORDS_DATE BETWEEN #{today_start} AND #{today_end}
+	</select>
+	
+	<select id="todaySignUpCnt" parameterType="String" resultType="int">
+		SELECT COUNT(*)
+		FROM MEMBERS
+		WHERE MBR_RGSDE = #{today}
+	</select>
+	
+	<select id="todayTotSales" parameterType="hashMap" resultType="int">
+		SELECT SUM(ORDS_TOTAL)
+		FROM  ORDERS 
+		WHERE ORDS_DATE BETWEEN #{today_start} AND #{today_end}
+	</select>
+	
+</mapper>

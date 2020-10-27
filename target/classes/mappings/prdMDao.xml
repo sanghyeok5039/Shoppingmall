@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.PrdMDAO">
+	<select id="getList" resultType="prdDto">
+		<!--  -->
+		select    p.product_id          as prd_id
+		        , p.product_name        as prd_name
+		        , p.ctgr_id             as ctgr_id
+		        , p.m_ctgr_id           as m_ctgr_id
+		        , p.product_img         as prd_img
+		        , sum(pd.product_count) as prd_cnt
+		        , pd.product_price      as prd_price
+		        , p.product_state       as prd_stt
+		from      product p
+		        , product_detail pd
+		where   p.product_id = pd.product_id
+		group by p.product_id
+		        , p.product_name
+		        , p.ctgr_id
+		        , p.m_ctgr_id
+		        , p.product_img
+		        
+		        , pd.product_price
+		        , p.product_state
+		order by p.product_id
+	</select>
+	
+	<select id="getCnt" resultType="String">
+		SELECT  PD.PRODUCT_COUNT as prd_cnt
+		FROM    PRODUCT P
+		      , PRODUCT_DETAIL PD
+		WHERE   P.PRODUCT_ID = PD.PRODUCT_ID
+		AND     P.PRODUCT_ID    = #{param1}
+		and     pd.product_size = #{param2}  
+	</select>
+	
+	<select id="getSizeList" resultType="prdDto">
+		SELECT  pd.product_size as prd_size
+		FROM    PRODUCT P
+		      , PRODUCT_DETAIL PD
+		WHERE   P.PRODUCT_ID = PD.PRODUCT_ID
+		AND     P.PRODUCT_ID = #{param1}
+	</select>
+	
+	<select id="getCndtnSrchP" parameterType="String" resultType="prdDto">
+		select    p.product_id          as prd_id
+		        , p.product_name        as prd_name
+		        , p.ctgr_id             as ctgr_id
+		        , p.m_ctgr_id           as m_ctgr_id
+		        , p.product_img         as prd_img
+		        , sum(pd.product_count) as prd_cnt
+		        , pd.product_price      as prd_price
+		        , p.product_state       as prd_stt
+		from      product p
+		        , product_detail pd
+		where   p.product_id = pd.product_id
+		and     p.product_name like #{param1}
+		group by p.product_id
+		        , p.product_name
+		        , p.ctgr_id
+		        , p.m_ctgr_id
+		        , p.product_img
+		        , pd.product_price
+		        , p.product_state
+		order by p.product_id
+	</select>
+	
+	<select id="getCndtnSrchC" parameterType="String" resultType="prdDto">
+		select    p.product_id          as prd_id
+		        , p.product_name        as prd_name
+		        , p.ctgr_id             as ctgr_id
+		        , p.m_ctgr_id           as m_ctgr_id
+		        , p.product_img         as prd_img
+		        , sum(pd.product_count) as prd_cnt
+		        , pd.product_price      as prd_price
+		        , p.product_state       as prd_stt
+		from      product p
+		        , product_detail pd
+		        , main_category c
+		where   p.product_id = pd.product_id
+		and     p.m_ctgr_id = c.m_ctgr_id
+		and     c.m_ctgr_name like #{param1}
+		group by p.product_id
+		        , p.product_name
+		        , p.ctgr_id
+		        , p.m_ctgr_id
+		        , p.product_img
+		        , pd.product_price
+		        , p.product_state
+		order by p.product_id
+	</select>
+	
+	<select id="prdMaxRownum" resultType="int">
+		SELECT MAX(ROWNUM)
+		FROM PRODUCT
+	</select>
+	<select id="prdDtMaxRownum" resultType="int">
+		SELECT MAX(ROWNUM)
+		FROM PRODUCT_DETAIL
+	</select>
+	
+</mapper>

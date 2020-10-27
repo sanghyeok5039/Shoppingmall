@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<mapper namespace="com.shoppingmall.dao.IProductDao">
+
+	<select id="searchCategory" resultType="Dto" parameterType="CDto">
+		SELECT * FROM ( SELECT ROWNUM RNUM , O.* FROM (
+		SELECT * FROM PRODUCT WHERE CTGR_ID = #{ctgr_id}
+		) O  )	WHERE  RNUM	<![CDATA[>= #{startNum}  AND   ROWNUM	<= #{pageNum}]]>
+	</select> 
+	
+	<select id="searchMainCategory" resultType="Dto" parameterType="CDto">
+		SELECT * FROM ( SELECT ROWNUM RNUM , O.* FROM (
+		SELECT * FROM PRODUCT WHERE M_CTGR_ID = #{m_ctgr_id}
+		) O  )	WHERE  RNUM	<![CDATA[>= #{startNum}  AND   ROWNUM	<= #{pageNum}]]>
+	</select> 
+	
+	<select id="searchName" resultType="Dto" parameterType="CDto">
+		SELECT * FROM ( SELECT ROWNUM RNUM , O.* FROM (
+		SELECT * FROM PRODUCT WHERE PRODUCT_NAME LIKE '%'||#{product_name}||'%'
+		) O  )	WHERE  RNUM	<![CDATA[>= #{startNum}  AND   ROWNUM	<= #{pageNum}]]>
+	</select> 
+
+	<select id="countCategory" resultType="int" parameterType="String">
+		SELECT count(*) FROM PRODUCT WHERE CTGR_ID=#{ctgr_id}
+	</select>
+	
+	<select id="countMainCategory" resultType="int" parameterType="String">
+		SELECT count(*) FROM PRODUCT WHERE M_CTGR_ID=#{m_ctgr_id}
+	</select>
+	
+	<select id="countName" resultType="int" parameterType="String">
+		SELECT count(*) FROM PRODUCT WHERE PRODUCT_NAME LIKE '%'||#{product_name}||'%'
+	</select>
+	
+	<select id="searchOne" resultType="Dto" parameterType="String">
+		SELECT * FROM PRODUCT  
+		WHERE PRODUCT_ID = #{product_id}
+	</select>
+	
+	<update id = "countupdate" parameterType = "Dto">
+		UPDATE PRODUCT SET 
+		PRODUCT_COUNT = #{product_count}
+		WHERE PRODUCT_ID = #{product_id}
+	</update>
+	
+	<update id = "reviewupdate" parameterType = "Dto">
+		UPDATE PRODUCT SET 
+		PRODUCT_TOTALGRADE = #{product_totalgrade}
+		WHERE PRODUCT_ID = #{product_id}
+	</update>
+	
+</mapper>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.MbrDAO">
+
+	<select id = "getOne" resultType="mbrDto" parameterType = "String">
+		SELECT * FROM MEMBERS 
+		WHERE MBR_ID = #{param1}
+	</select>
+	
+	<insert id = "insert" parameterType="mbrDto">
+		INSERT INTO MEMBERS(MBR_ID, MBR_PW, MBR_GRADE, MBR_NAME, MBR_TEL, MBR_ADRES, MBR_RGSDE, MBR_LEVEL, MBR_SEX, MBR_BRTHDY, MBR_POINT, MBR_SECSN)
+		VALUES (#{mbr_id}, #{mbr_pw}, #{mbr_grade}, #{mbr_name}, #{mbr_tel}, #{mbr_adres}, #{mbr_rgsde}, #{mbr_level}, #{mbr_sex}, #{mbr_brthdy}, #{mbr_point}, #{mbr_secsn} )
+	</insert>
+	
+	<update id = "update">
+		UPDATE MEMBERS SET 
+		MBR_PW 			= #{mbr_pw}
+		,MBR_GRADE 		= #{mbr_grade}
+		,MBR_NAME 		= #{mbr_name}
+		,MBR_TEL 		= #{mbr_tel}
+		,MBR_ADRES 		= #{mbr_adres}
+		,MBR_RGSDE 		= #{mbr_rgsde}
+		,MBR_LEVEL 		= #{mbr_level}
+		,MBR_SEX 		= #{mbr_sex}
+		,MBR_BRTHDY 	= #{mbr_brthdy}
+		,MBR_POINT 		= #{mbr_point}
+		,MBR_SECSN 		= #{mbr_secsn}
+		WHERE MBR_ID 	= #{mbr_id}
+	</update>
+	
+	<delete id = "delete">
+		DELETE FROM MEMBERS 
+		WHERE MBR_ID = #{mbr_id}
+	</delete>
+
+</mapper>

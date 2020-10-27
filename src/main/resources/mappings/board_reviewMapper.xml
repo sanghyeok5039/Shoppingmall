@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.shoppingmall.dao.IBoard_reviewDao">
+	<select id="search" resultType="BDto" parameterType="CDto">
+		SELECT * FROM ( SELECT ROWNUM RNUM , O.* FROM (
+		SELECT * FROM BOARD_REVIEW
+		WHERE PRODUCT_ID = #{product_id} ORDER BY REVIEW_REGDATE DESC
+		) O  )	WHERE  RNUM	<![CDATA[>= #{startNum}  AND   ROWNUM	<= #{pageNum}]]>
+	</select> 
+	
+	<select id="count" resultType="int" parameterType="String">
+		SELECT count(*) FROM BOARD_REVIEW WHERE PRODUCT_ID = #{product_id}
+	</select>
+	
+	<select id="grade" resultType="BDto" parameterType="String">
+		SELECT * FROM BOARD_REVIEW WHERE PRODUCT_ID = #{product_id}
+	</select>
+
+	<select id="num" resultType="Integer">
+		SELECT MAX(REVIEW_NUM) FROM BOARD_REVIEW 
+	</select>
+	
+	<insert id="insert" parameterType="BDto">
+		INSERT INTO BOARD_REVIEW(REVIEW_NUM, MBR_ID, PRODUCT_ID, REVIEW_TITLE, REVIEW_CONTENT, REVIEW_REGDATE,
+								 REVIEW_READCOUNT, REVIEW_REF, REVIEW_RESTEP, REVIEW_RELEVEL, REVIEW_GRADE)
+		VALUES (#{review_num},#{mbr_id},#{product_id},#{review_title},#{review_content},#{review_regdate},
+				#{review_readcount},#{review_ref},#{review_restep},#{review_relevel},#{review_grade})
+	</insert>
+</mapper>
